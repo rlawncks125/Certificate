@@ -13,4 +13,8 @@ module.exports = {
     extend: {},
   },
   plugins: [],
+  corePlugins: {
+    // Preflight의 css 초기화 ( reset.css ) 비활성화
+    preflight: false,
+  },
 };

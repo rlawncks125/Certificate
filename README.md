@@ -1,42 +1,6 @@
-# Nuxt 3 Minimal Starter
+#방식1 ( 나만쓸떄 )
+로컬에 데이터 파일 읽어서 데이터 뿌리기
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+#방식2 ( 문제 추가 & 문제 읽기 방식 )
 
-## Setup
-
-Make sure to install the dependencies:
-
-```bash
-# yarn
-yarn install
-
-# npm
-npm install
-
-# pnpm
-pnpm install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`
-
-```bash
-npm run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-npm run build
-```
-
-Locally preview production build:
-
-```bash
-npm run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+문제를 추가하는 페이즈를 만들기

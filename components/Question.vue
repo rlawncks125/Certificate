@@ -1,26 +1,74 @@
 <script setup lang="ts">
-const { item } = defineProps<{ item: any }>();
+import { ItemProperty } from "~/common/type";
+
+const { item } = defineProps<{ item: ItemProperty }>();
+
+const answer = ref(item["제출란"] || "");
+const textareaRef = ref();
+
+const textareaAutoHieght = (e: any) => {
+  const textarea = e.target as HTMLTextAreaElement;
+
+  textarea.style.height = "auto";
+  const scrollHeight = textarea.scrollHeight + 4;
+  textarea.style.height = scrollHeight + "px";
+};
+
+onMounted(() => {
+  if (!textareaRef.value) return;
+  textareaRef.value.style.height = "auto";
+  const scrollHeight = textareaRef.value.scrollHeight + 4;
+  textareaRef.value.style.height = scrollHeight + "px";
+
+  console.log("Item mounted");
+});
 </script>
 
 <template>
   <div class="wrap">
     <div class="py-[.4rem]">
-      <p>{{ item["index"] }}. {{ item["질문"] }}</p>
+      <p class="flex items-top gap-1">
+        <span> {{ item["index"] }}. </span>
+        <span v-html="item['질문']"> </span>
+      </p>
     </div>
 
-    <div class="py-[.4rem]">
-      <p v-html="item['보기']"></p>
-      <p>{{ item["보기src"] }}</p>
+    <div
+      class="my-[1rem] py-[1rem] p-2 relative"
+      :style="{ border: '1px solid' }"
+    >
+      <div v-if="item['보기src'].length > 0">
+        <img
+          :src="item['보기src'].replace(/upload/, 'upload/w_400,h_400/')"
+          alt="문제 보기입니다."
+        />
+      </div>
+      <p v-else v-html="item['보기']"></p>
+      <span
+        class="absolute -top-3 left-2 bg-white px-[5px] py-[2px] border border-black text-[12px]"
+        :style="{ border: '1px solid' }"
+        >보기</span
+      >
+    </div>
+    <div class="flex flex-col">
+      <label for="" class="">정답 작성 </label>
+      <textarea
+        ref="textareaRef"
+        class="border-2 border-black p-2"
+        @input="textareaAutoHieght"
+        v-model="answer"
+      >
+      </textarea>
     </div>
 
-    <AccordionButton class="m-[.5rem]">
+    <AccordionButton class="my-[.5rem]">
       <template #button>
-        <span class="block">답 보기</span>
+        <span class="block">정답 보기</span>
       </template>
       <p v-html="item['답'] || '<div>답 없음</div>'"></p>
     </AccordionButton>
 
-    <AccordionButton class="m-[.5rem]">
+    <AccordionButton class="my-[.5rem]">
       <template #button>
         <span class="block">해설 보기</span>
       </template>
