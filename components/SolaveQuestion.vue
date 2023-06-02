@@ -2,8 +2,15 @@
 import { ItemProperty } from "~/common/type";
 import useSolveQuestion, { type SolveQuestion } from "~/store/useSolveQuestion";
 
-const { item } = defineProps<{
+const { item, itemIndex } = defineProps<{
   item: ItemProperty;
+  itemIndex?: number;
+}>();
+
+const emtis = defineEmits<{
+  (e: "update:next", item: SolveQuestion): void;
+  (e: "btn:next"): void;
+  (e: "btn:pre"): void;
 }>();
 
 const answer = ref(item["제출란"] || "");
@@ -15,6 +22,25 @@ const textareaAutoHieght = (e: any) => {
   textarea.style.height = "auto";
   const scrollHeight = textarea.scrollHeight + 4;
   textarea.style.height = scrollHeight + "px";
+};
+
+const answerTrue = () => {
+  emtis("update:next", {
+    item: {
+      ...item,
+      제출란: answer.value,
+    },
+    isAnswer: true,
+  });
+};
+const answerFalse = () => {
+  emtis("update:next", {
+    item: {
+      ...item,
+      제출란: answer.value,
+    },
+    isAnswer: false,
+  });
 };
 
 onMounted(() => {
@@ -31,7 +57,7 @@ onMounted(() => {
   <div class="wrap">
     <div class="py-[.4rem]">
       <p class="flex items-top gap-1">
-        <span> {{ item["index"] }}. </span>
+        <span> {{ itemIndex || item["index"] }}. </span>
         <span v-html="item['질문']"> </span>
       </p>
     </div>
@@ -63,7 +89,12 @@ onMounted(() => {
       >
       </textarea>
     </div>
-
+    <div class="float-right flex">
+      <button class="question-btn" @click="answerTrue">정답</button>
+      <button class="question-btn" @click="answerFalse">오답</button>
+      <button class="question-btn" @click="emtis('btn:pre')">이전</button>
+      <button class="question-btn" @click="emtis('btn:next')">다음</button>
+    </div>
     <AccordionButton class="my-[.5rem]">
       <template #button>
         <span class="block">정답 보기</span>

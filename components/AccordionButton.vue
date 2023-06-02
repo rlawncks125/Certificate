@@ -62,7 +62,7 @@ const onClick = (event: any) => {
 }
 .button.checked {
   & ~ .content-wrap {
-    max-height: 100%;
+    max-height: 200vh;
   }
   svg {
     transform: rotateZ(90deg);

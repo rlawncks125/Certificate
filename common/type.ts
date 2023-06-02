@@ -1,5 +1,6 @@
 export interface ItemProperty {
   index: any;
+  score: number;
   질문: string;
   보기: string;
   보기src: string;

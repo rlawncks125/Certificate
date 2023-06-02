@@ -2,6 +2,14 @@
 import Editor from "@toast-ui/editor";
 import { ItemProperty } from "~/common/type";
 
+import { storeToRefs } from "pinia";
+import useWriteQuestion from "~/store/useWriteQuestion";
+
+const router = useRouter();
+
+const { 답txt, 보기txt, 질문txt, 해설txt } = storeToRefs(useWriteQuestion());
+const { save: storeSave, init: storeInit } = useWriteQuestion();
+
 const 질문Ref = ref();
 const 보기Ref = ref();
 const 답Ref = ref();
@@ -27,16 +35,21 @@ const onParser = () => {
     제출란: "",
   } as ItemProperty;
 
+  const jsonData = JSON.stringify(item);
   // 클립 복사
   navigator.clipboard
-    .writeText(JSON.stringify(item))
+    .writeText(jsonData)
     .then(() => {
-      console.log("클립복사 성공", JSON.stringify(item));
+      const { $toastAlertSuccess } = useNuxtApp();
+      console.log("클립복사 성공", jsonData);
+      $toastAlertSuccess("클립복사 성공");
     })
     .catch(() => {
       console.log("클립복사 실패");
     });
   console.log(item);
+
+  storeSave(item);
 };
 
 const onGetHTML = (editor: Editor): string => {
@@ -47,14 +60,24 @@ const onGetHTML = (editor: Editor): string => {
   return html + "";
 };
 
+const initStore = () => {
+  storeInit();
+  router.go(0);
+};
+
 onMounted(() => {
-  const { $setToastEditor } = useNuxtApp();
+  const { $setToastEditorSetHTML } = useNuxtApp();
 
   // editor.value = $setToastEditor(toastUIRef.value);
-  toastEditor["질문"] = $setToastEditor(질문Ref.value);
-  toastEditor["보기"] = $setToastEditor(보기Ref.value);
-  toastEditor["답"] = $setToastEditor(답Ref.value);
-  toastEditor["해설"] = $setToastEditor(해설Ref.value, "400px");
+
+  toastEditor["질문"] = $setToastEditorSetHTML(질문Ref.value, 질문txt.value);
+  toastEditor["보기"] = $setToastEditorSetHTML(보기Ref.value, 보기txt.value);
+  toastEditor["답"] = $setToastEditorSetHTML(답Ref.value, 답txt.value);
+  toastEditor["해설"] = $setToastEditorSetHTML(
+    해설Ref.value,
+    해설txt.value,
+    "400px"
+  );
 });
 </script>
 
@@ -63,13 +86,11 @@ onMounted(() => {
     <span> createQuestion </span>
     <NuxtLink to="/">홈으로</NuxtLink>
   </div>
+  <div @click="initStore" class="float-right">
+    <button>데이터 초기화</button>
+  </div>
   <br />
-  <button
-    @click="onParser"
-    class="p-4 border text-white bg-black hover:opacity-70"
-  >
-    getJSON
-  </button>
+
   <h1>질문</h1>
   <div ref="질문Ref"></div>
   <h1>보기</h1>
@@ -78,6 +99,12 @@ onMounted(() => {
   <div ref="답Ref"></div>
   <h1>해설</h1>
   <div ref="해설Ref"></div>
+  <button
+    @click="onParser"
+    class="p-4 border text-white bg-black hover:opacity-70 float-right my-2 cursor-pointer"
+  >
+    getJSON
+  </button>
 </template>
 
 <style lang="scss">
