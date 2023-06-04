@@ -15,20 +15,17 @@ getAllQuestion().then((res) => {
 onMounted(() => {
   console.log(questionLists.value);
 });
-
-/** '로 묶은 단어 강조 '하이라이트 텍스트' */
-const highlightText = (text: string) => {
-  return text.replace(/\'(.*?)\'/g, "<span class='text-red-500'>$1</span>");
-};
 </script>
 
 <template>
-  <div>
-    <!-- <ClientOnly>
-      <div>{{ lists }}</div>
-    </ClientOnly> -->
+  <!-- <ClientOnly>
+    <div>{{ lists }}</div>
+  </ClientOnly> -->
+
+  <div class="flex justify-between">
     <span> Home </span>
     <NuxtLink to="/CreateQuestion">문제 생성</NuxtLink>
+    <NuxtLink to="/solve">문제 풀기</NuxtLink>
   </div>
 
   <ClientOnly>
@@ -39,20 +36,6 @@ const highlightText = (text: string) => {
 </template>
 
 <style lang="scss">
-body {
-  @apply px-[1rem];
-
-  white-space: pre-wrap;
-}
-
-table {
-  width: 100%;
-  border: 1px solid #444444;
-  border-collapse: collapse;
-}
-th,
-td {
-  border: 1px solid #444444;
-  padding: 10px;
+.da {
 }
 </style>

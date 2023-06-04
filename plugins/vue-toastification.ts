@@ -33,6 +33,9 @@ export default defineNuxtPlugin((nuxtApp) => {
       toastAlertSuccess: (msg: string) => {
         toastAlert.success(msg);
       },
+      toastError: (msg: string) => {
+        toastAlert.error(msg);
+      },
     },
   };
 });
@@ -41,5 +44,6 @@ declare module "@vue/runtime-core" {
   interface ComponentCustomProperties {
     $toastAlert(msg: string): void;
     $toastAlertSuccess(msg: string): void;
+    $toastError(msg: string): void;
   }
 }

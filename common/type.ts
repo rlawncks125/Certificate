@@ -8,3 +8,9 @@ export interface ItemProperty {
   해설: string;
   제출란: string;
 }
+
+export interface CoreOutPut {
+  sucess: boolean;
+  desc?: string;
+  err?: string;
+}

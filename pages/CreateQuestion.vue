@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import Editor from "@toast-ui/editor";
-import { ItemProperty } from "~/common/type";
+import { CoreOutPut, ItemProperty } from "~/common/type";
 
 import { storeToRefs } from "pinia";
 import useWriteQuestion from "~/store/useWriteQuestion";
+import { CreateFileInputDTO } from "~/server/api/question/createFile.post";
+import { AppendFileInputDTO } from "~/server/api/question/appendFile.post";
 
 const router = useRouter();
 
@@ -14,6 +16,7 @@ const 질문Ref = ref();
 const 보기Ref = ref();
 const 답Ref = ref();
 const 해설Ref = ref();
+const fileName = useCookie("create-file-name", { default: () => "" });
 
 const toastEditor = reactive({
   질문: "",
@@ -36,20 +39,45 @@ const onParser = () => {
   } as ItemProperty;
 
   const jsonData = JSON.stringify(item);
-  // 클립 복사
-  navigator.clipboard
-    .writeText(jsonData)
-    .then(() => {
-      const { $toastAlertSuccess } = useNuxtApp();
-      console.log("클립복사 성공", jsonData);
-      $toastAlertSuccess("클립복사 성공");
-    })
-    .catch(() => {
-      console.log("클립복사 실패");
-    });
-  console.log(item);
+
+  // console.log(item);
+
+  // 내용 붙이기
+  useFetch("/api/question/appendFile", {
+    method: "post",
+    body: {
+      fileName: fileName.value,
+      content: jsonData,
+    } as CreateFileInputDTO,
+  }).then((succes) => {
+    if (succes) {
+      useAlert().base("추가했습니다.");
+    }
+  });
 
   storeSave(item);
+
+  // clipBorad(jsonData);
+};
+const onCreateFile = () => {
+  useFetch("/api/question/createFile", {
+    method: "post",
+    body: {
+      fileName: fileName.value,
+    } as AppendFileInputDTO,
+  })
+    .then((res: any) => {
+      const { sucess, desc, err } = res.data.value as CoreOutPut;
+
+      if (sucess) {
+        useAlert().success(desc!);
+      } else {
+        useAlert().fail(err!);
+      }
+    })
+    .catch((err) => {
+      console.log("클라이언트 에러 핸들링", err);
+    });
 };
 
 const onGetHTML = (editor: Editor): string => {
@@ -90,7 +118,13 @@ onMounted(() => {
     <button>데이터 초기화</button>
   </div>
   <br />
-
+  <div>
+    <div>
+      <label for="file-name">파일 경로 </label>
+      <input type="text" name="file-name" id="" v-model="fileName" />
+    </div>
+    <button @click="onCreateFile">파일 생성</button>
+  </div>
   <h1>질문</h1>
   <div ref="질문Ref"></div>
   <h1>보기</h1>
