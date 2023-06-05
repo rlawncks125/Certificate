@@ -1,1 +1,1 @@
-export const QUESTION_DIRECTORY_PATH = "./server/data";
+export const QUESTION_DIRECTORY_PATH = "./server/datas";

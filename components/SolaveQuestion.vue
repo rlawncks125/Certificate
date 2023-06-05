@@ -90,8 +90,8 @@ onMounted(() => {
       </textarea>
     </div>
     <div class="float-right flex">
-      <button class="question-btn" @click="answerTrue">정답</button>
-      <button class="question-btn" @click="answerFalse">오답</button>
+      <button class="question-btn btn-blue" @click="answerTrue">정답</button>
+      <button class="question-btn btn-red" @click="answerFalse">오답</button>
       <button class="question-btn" @click="emtis('btn:pre')">이전</button>
       <button class="question-btn" @click="emtis('btn:next')">다음</button>
     </div>
@@ -119,6 +119,14 @@ onMounted(() => {
   @apply px-[.5rem];
 }
 .question-btn {
+  @apply text-white font-bold py-2 px-4 rounded bg-stone-500 hover:bg-stone-700;
   @apply cursor-pointer m-[.2rem];
+
+  &.btn-red {
+    @apply bg-blue-500 hover:bg-blue-700;
+  }
+  &.btn-blue {
+    @apply bg-red-500 hover:bg-red-700;
+  }
 }
 </style>

@@ -3,6 +3,8 @@ import { storeToRefs } from "pinia";
 import { list } from "postcss";
 import useSolveQuestion, { SolveQuestion } from "~/store/useSolveQuestion";
 
+import {} from "#imports";
+
 const { lists } = storeToRefs(useSolveQuestion());
 const { batchTest } = useSolveQuestion();
 
@@ -42,6 +44,7 @@ onMounted(() => {
   <div class="flex justify-between">
     <h1>결과</h1>
     <button @click="reBatch">다시 보기</button>
+    <NuxtLink to="/">홈 으로</NuxtLink>
   </div>
   <p>{{ answerValue }}점 / 총{{ totlaValue }}점</p>
   <h2 class="text-green-400">정답</h2>
