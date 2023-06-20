@@ -3,17 +3,11 @@ import { storeToRefs } from "pinia";
 import useSolveQuestion, { SolveQuestion } from "~/store/useSolveQuestion";
 
 const router = useRouter();
-
 const { lists, solveIndex } = storeToRefs(useSolveQuestion());
-const { batchTest, update } = useSolveQuestion();
+const { update } = useSolveQuestion();
 
 const reBatch = () => {
-  batchTest({
-    short: {
-      types: ["시스템보안", "네트워크보안"],
-      count: 5,
-    },
-  });
+  router.push("/bacthsolve");
 };
 
 const handlerUpdate = (item: SolveQuestion) => {
@@ -34,6 +28,7 @@ watch(solveIndex, () => {
   <div>문제푸는 페이지</div>
   <div class="flex justify-between">
     <button @click="reBatch">문제 재배치</button>
+    <NuxtLink to="/">HOME</NuxtLink>
     <NuxtLink to="answer">결과 보러가기</NuxtLink>
   </div>
 
@@ -51,7 +46,7 @@ watch(solveIndex, () => {
             }}
           </div>
 
-          <LazySolaveQuestion
+          <LazyQuestionSolve
             :item="question.item"
             :item-index="_index + 1"
             @update:next="handlerUpdate"

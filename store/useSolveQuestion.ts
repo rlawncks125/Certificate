@@ -35,7 +35,7 @@ export const useSolveQuestion = defineStore(
     const lists = useState<SolveQuestion[]>("solve-question", () => []);
     const solveIndex = useState<number>("solveIndex", () => 0);
 
-    const batch = (단답: number, 서술형: number, 실무형: number) => {
+    const batchTest = (단답: number, 서술형: number, 실무형: number) => {
       const arr1 = shuffle([]).splice(0, 단답);
       const arr2 = shuffle([]).splice(0, 서술형);
       const arr3 = shuffle([]).splice(0, 실무형);
@@ -54,7 +54,7 @@ export const useSolveQuestion = defineStore(
       lists.value = [];
     };
 
-    const batchTest = async (options: batchParms) => {
+    const batch = async (options: batchParms) => {
       lists.value = [];
       const fetchLists = [];
       if (options.short) {
@@ -64,6 +64,19 @@ export const useSolveQuestion = defineStore(
         ).then((res) => shuffle(res).splice(0, options.short?.count));
         fetchLists.push(shortLists);
       }
+      if (options.descriptive) {
+        const descLists = questionTypeDescriptive(
+          options.descriptive.types,
+          true
+        ).then((res) => shuffle(res).splice(0, options.descriptive?.count));
+        fetchLists.push(descLists);
+      }
+      if (options.working) {
+        const workLists = questionTypeWorking(options.working.types, true).then(
+          (res) => shuffle(res).splice(0, options.working?.count)
+        );
+        fetchLists.push(workLists);
+      }
 
       const questionLists = (await Promise.all(fetchLists)).flat(2);
       console.log(questionLists);
@@ -71,7 +84,7 @@ export const useSolveQuestion = defineStore(
       solveIndex.value = 0;
       return questionLists;
     };
-    return { lists, solveIndex, reset, batchTest, update };
+    return { lists, solveIndex, reset, batch, batchTest, update };
   },
   {
     persist: {

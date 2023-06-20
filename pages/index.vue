@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
+
 import useSolveQuestion from "~/store/useSolveQuestion";
 
 const {
@@ -10,14 +11,16 @@ const chapter1 = await useFetch("/api/chapter-01-short");
 const questionLists = useState<any[]>("문제 배열", () => []);
 
 const { lists } = storeToRefs(useSolveQuestion());
-const { getAllQuestion } = useQuestion();
+const { getAllQuestion, questionTypeDescriptive } = useQuestion();
 
-getAllQuestion().then((res) => {
-  questionLists.value = res;
-});
+// getAllQuestion().then((res) => {
+//   questionLists.value = res;
+//   questionLists.value.sort((a, b) => b.index - a.index);
+// });
 
-onMounted(async () => {
-  console.log(questionLists.value);
+questionTypeDescriptive(["시스템보안"]).then((res) => {
+  questionLists.value = res.flat(2);
+  questionLists.value.sort((a, b) => b.index - a.index);
 });
 </script>
 
@@ -34,12 +37,13 @@ onMounted(async () => {
 
   <ClientOnly>
     <div v-if="questionLists" v-for="item in questionLists">
-      <LazyQuestion v-if="item" :item="item" />
+      <LazyQuestionDesign v-if="item" :item="item" />
     </div>
   </ClientOnly>
 </template>
 
 <style lang="scss">
-.da {
+p {
+  word-wrap: break-word;
 }
 </style>

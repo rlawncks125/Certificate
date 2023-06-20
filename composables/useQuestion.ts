@@ -12,7 +12,7 @@ export const useQuestion = () => {
     const fetchLists: any[] = [];
     const score = 3;
 
-    const questionMaps: { [key: string]: any } = {
+    const questionMaps: { [key in QuestionTypeShortPram]: any } = {
       시스템보안: "/api/chapter-01-short",
       네트워크보안: "/api/capter-02-short",
     };
@@ -46,13 +46,14 @@ export const useQuestion = () => {
 
   /** 서술형 */
   async function questionTypeDescriptive(
-    questionTypes: QuestionTypeShortPram[]
+    questionTypes: QuestionTypeShortPram[],
+    isSolveType = false
   ) {
     const fetchLists: any[] = [];
     const score = 12;
 
-    const questionMaps: { [key: string]: any } = {
-      시스템보안: "/api/chapter-01-short",
+    const questionMaps: { [key in QuestionTypeShortPram]: any } = {
+      시스템보안: "/api/chapter-01-desc",
       네트워크보안: "/api/capter-02-short",
     };
 
@@ -66,14 +67,21 @@ export const useQuestion = () => {
 
     const questionLists = await Promise.all(fetchLists);
 
-    return questionLists.map((v) => solveDataParser(v, score)).flat(2);
+    return questionLists
+      .map((v) =>
+        isSolveType ? solveDataParser(v, score) : fetchDataParser(v)
+      )
+      .flat(2);
   }
   /** 실무형 */
-  async function questionTypeWorking(questionTypes: QuestionTypeShortPram[]) {
+  async function questionTypeWorking(
+    questionTypes: QuestionTypeShortPram[],
+    isSolveType = false
+  ) {
     const fetchLists: any[] = [];
     const score = 16;
 
-    const questionMaps: { [key: string]: any } = {
+    const questionMaps: { [key in QuestionTypeShortPram]: any } = {
       시스템보안: "/api/chapter-01-short",
       네트워크보안: "/api/capter-02-short",
     };
@@ -88,13 +96,19 @@ export const useQuestion = () => {
 
     const questionLists = await Promise.all(fetchLists);
 
-    return questionLists.map((v) => solveDataParser(v, score)).flat(2);
+    return questionLists
+      .map((v) =>
+        isSolveType ? solveDataParser(v, score) : fetchDataParser(v)
+      )
+      .flat(2);
   }
 
   const getAllQuestion = async () => {
     const short = questionTypeShortAnswer(["시스템보안", "네트워크보안"]);
+    const desc = questionTypeDescriptive(["시스템보안"]);
 
-    const questionLists = (await Promise.all([short])).flat(2);
+    const questionLists = (await Promise.all([short, desc])).flat(2);
+
     return questionLists;
   };
 

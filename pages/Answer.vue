@@ -1,22 +1,15 @@
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
-import { list } from "postcss";
 import useSolveQuestion, { SolveQuestion } from "~/store/useSolveQuestion";
 
 import {} from "#imports";
 
 const { lists } = storeToRefs(useSolveQuestion());
-const { batchTest } = useSolveQuestion();
 
 const router = useRouter();
 
 const reBatch = () => {
-  batchTest({
-    short: {
-      types: ["시스템보안", "네트워크보안"],
-      count: 5,
-    },
-  }).then(() => router.push("/solve"));
+  router.push("/bacthsolve");
 };
 
 const trueLists = ref<SolveQuestion[]>([]);
@@ -50,13 +43,13 @@ onMounted(() => {
   <h2 class="text-green-400">정답</h2>
   <ClientOnly>
     <div v-if="trueLists" v-for="item in trueLists">
-      <LazyQuestion :item="item.item" />
+      <LazyQuestionDesign :item="item.item" />
     </div>
   </ClientOnly>
   <h2 class="text-red-400">오답</h2>
   <ClientOnly>
     <div v-if="falseLists" v-for="item in falseLists">
-      <LazyQuestion :item="item.item" />
+      <LazyQuestionDesign :item="item.item" />
     </div>
   </ClientOnly>
 </template>

@@ -6,6 +6,7 @@ import { storeToRefs } from "pinia";
 import useWriteQuestion from "~/store/useWriteQuestion";
 import { CreateFileInputDTO } from "~/server/api/question/createFile.post";
 import { AppendFileInputDTO } from "~/server/api/question/appendFile.post";
+import { EVENTS } from "vue-toastification/dist/types/ts/constants";
 
 const router = useRouter();
 
@@ -93,6 +94,25 @@ const initStore = () => {
   router.go(0);
 };
 
+const onKeyDownSave = (ev: KeyboardEvent) => {
+  if (ev.ctrlKey && (ev.key === "s" || ev.key === "S")) {
+    ev.preventDefault();
+    const item = {
+      질문: onGetHTML(toastEditor["질문"]).substring(
+        3,
+        onGetHTML(toastEditor["질문"]).length - 4
+      ),
+      보기: onGetHTML(toastEditor["보기"]),
+      보기src: "",
+      답: onGetHTML(toastEditor["답"]),
+      해설: onGetHTML(toastEditor["해설"]),
+      제출란: "",
+    } as ItemProperty;
+    storeSave(item);
+    useAlert().success("저장됨");
+  }
+};
+
 onMounted(() => {
   const { $setToastEditorSetHTML } = useNuxtApp();
 
@@ -106,6 +126,11 @@ onMounted(() => {
     해설txt.value,
     "400px"
   );
+
+  window.addEventListener("keydown", onKeyDownSave);
+});
+onUnmounted(() => {
+  window.removeEventListener("keydown", onKeyDownSave);
 });
 </script>
 
@@ -139,6 +164,21 @@ onMounted(() => {
   >
     getJSON
   </button>
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
 </template>
 
 <style lang="scss">

@@ -2,52 +2,17 @@
 import { ItemProperty } from "~/common/type";
 import useSolveQuestion, { type SolveQuestion } from "~/store/useSolveQuestion";
 
-const { item, itemIndex } = defineProps<{
+const { item } = defineProps<{
   item: ItemProperty;
-  itemIndex?: number;
-}>();
-
-const emtis = defineEmits<{
-  (e: "update:next", item: SolveQuestion): void;
-  (e: "btn:next"): void;
-  (e: "btn:pre"): void;
 }>();
 
 const answer = ref(item["제출란"] || "");
 const textareaRef = ref();
 
-const textareaAutoHieght = (e: any) => {
-  const textarea = e.target as HTMLTextAreaElement;
-
-  textarea.style.height = "auto";
-  const scrollHeight = textarea.scrollHeight + 4;
-  textarea.style.height = scrollHeight + "px";
-};
-
-const answerTrue = () => {
-  emtis("update:next", {
-    item: {
-      ...item,
-      제출란: answer.value,
-    },
-    isAnswer: true,
-  });
-};
-const answerFalse = () => {
-  emtis("update:next", {
-    item: {
-      ...item,
-      제출란: answer.value,
-    },
-    isAnswer: false,
-  });
-};
-
 onMounted(() => {
   if (!textareaRef.value) return;
-  textareaRef.value.style.height = "auto";
-  const scrollHeight = textareaRef.value.scrollHeight + 4;
-  textareaRef.value.style.height = scrollHeight + "px";
+
+  textareaAutoHieghtByElement(textareaRef.value);
 
   console.log("Item mounted");
 });
@@ -57,7 +22,7 @@ onMounted(() => {
   <div class="wrap">
     <div class="py-[.4rem]">
       <p class="flex items-top gap-1">
-        <span> {{ itemIndex || item["index"] }}. </span>
+        <span> {{ item["index"] }}. </span>
         <span v-html="item['질문']"> </span>
       </p>
     </div>
@@ -84,30 +49,25 @@ onMounted(() => {
       <textarea
         ref="textareaRef"
         class="border-2 border-black p-2"
-        @input="textareaAutoHieght"
+        @input="textareaAutoHieghtByInputHandler"
         v-model="answer"
       >
       </textarea>
     </div>
-    <div class="float-right flex">
-      <button class="question-btn btn-blue" @click="answerTrue">정답</button>
-      <button class="question-btn btn-red" @click="answerFalse">오답</button>
-      <button class="question-btn" @click="emtis('btn:pre')">이전</button>
-      <button class="question-btn" @click="emtis('btn:next')">다음</button>
-    </div>
-    <AccordionButton class="my-[.5rem]">
+
+    <ButtonAccordionButton class="my-[.5rem]">
       <template #button>
         <span class="block">정답 보기</span>
       </template>
       <p v-html="item['답'] || '<div>답 없음</div>'"></p>
-    </AccordionButton>
+    </ButtonAccordionButton>
 
-    <AccordionButton class="my-[.5rem]">
+    <ButtonAccordionButton class="my-[.5rem]">
       <template #button>
         <span class="block">해설 보기</span>
       </template>
       <p v-html="item['해설'] || '<div>해설 없음</div>'"></p>
-    </AccordionButton>
+    </ButtonAccordionButton>
   </div>
 </template>
 
@@ -119,14 +79,10 @@ onMounted(() => {
   @apply px-[.5rem];
 }
 .question-btn {
-  @apply text-white font-bold py-2 px-4 rounded bg-stone-500 hover:bg-stone-700;
   @apply cursor-pointer m-[.2rem];
+}
 
-  &.btn-red {
-    @apply bg-blue-500 hover:bg-blue-700;
-  }
-  &.btn-blue {
-    @apply bg-red-500 hover:bg-red-700;
-  }
+img {
+  @apply w-full object-contain;
 }
 </style>
