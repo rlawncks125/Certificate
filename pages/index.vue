@@ -11,14 +11,16 @@ const chapter1 = await useFetch("/api/chapter-01-short");
 const questionLists = useState<any[]>("문제 배열", () => []);
 
 const { lists } = storeToRefs(useSolveQuestion());
-const { getAllQuestion, questionTypeDescriptive } = useQuestion();
+const { getQuestionsSelect, getAllQuestion } = useQuestion();
 
 // getAllQuestion().then((res) => {
 //   questionLists.value = res;
 //   questionLists.value.sort((a, b) => b.index - a.index);
 // });
 
-questionTypeDescriptive(["시스템보안"]).then((res) => {
+getQuestionsSelect({
+  working: ["시스템보안"],
+}).then((res) => {
   questionLists.value = res.flat(2);
   questionLists.value.sort((a, b) => b.index - a.index);
 });

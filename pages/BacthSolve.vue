@@ -18,6 +18,7 @@ const questionMapper: { [key in QuestionTypeShortPram]: number } = {
   네트워크보안: 1,
 };
 
+/** model = checkbox  */
 const typeMapper = reactive({
   0: {
     title: "단답형",
@@ -88,7 +89,10 @@ const batchQuestion = () => {
     </div>
 
     <div class="flex h-20 items-center gap-2">
-      <div v-for="(value, key) in questionMapper" :key="`short-${value}`">
+      <div
+        v-for="(value, key) in questionMapper"
+        :key="`${item.name}-${value}`"
+      >
         <input
           type="checkbox"
           :id="`${item.name}-${value}`"

@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import Editor from "@toast-ui/editor";
-import { CoreOutPut, ItemProperty } from "~/common/type";
+import { CoreOutPut, QuestionProperty } from "~/common/type";
 
 import { storeToRefs } from "pinia";
 import useWriteQuestion from "~/store/useWriteQuestion";
 import { CreateFileInputDTO } from "~/server/api/question/createFile.post";
 import { AppendFileInputDTO } from "~/server/api/question/appendFile.post";
-import { EVENTS } from "vue-toastification/dist/types/ts/constants";
 
 const router = useRouter();
 
@@ -37,7 +36,7 @@ const onParser = () => {
     답: onGetHTML(toastEditor["답"]),
     해설: onGetHTML(toastEditor["해설"]),
     제출란: "",
-  } as ItemProperty;
+  } as QuestionProperty;
 
   const jsonData = JSON.stringify(item);
 
@@ -107,7 +106,7 @@ const onKeyDownSave = (ev: KeyboardEvent) => {
       답: onGetHTML(toastEditor["답"]),
       해설: onGetHTML(toastEditor["해설"]),
       제출란: "",
-    } as ItemProperty;
+    } as QuestionProperty;
     storeSave(item);
     useAlert().success("저장됨");
   }

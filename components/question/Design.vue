@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { ItemProperty } from "~/common/type";
-import useSolveQuestion, { type SolveQuestion } from "~/store/useSolveQuestion";
+import { QuestionProperty } from "~/common/type";
 
 const { item } = defineProps<{
-  item: ItemProperty;
+  item: QuestionProperty;
 }>();
 
 const answer = ref(item["제출란"] || "");

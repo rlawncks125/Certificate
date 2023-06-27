@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
-import useSolveQuestion, { SolveQuestion } from "~/store/useSolveQuestion";
+import { SolveQuestion } from "~/common/type";
+import useSolveQuestion from "~/store/useSolveQuestion";
 
 const router = useRouter();
 const { lists, solveIndex } = storeToRefs(useSolveQuestion());

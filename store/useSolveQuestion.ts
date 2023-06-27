@@ -1,12 +1,7 @@
 import { defineStore } from "pinia";
 import { list } from "postcss";
-import { ItemProperty } from "~/common/type";
+import { QuestionProperty, SolveQuestion } from "~/common/type";
 import { QuestionTypeShortPram } from "~/composables/useQuestion";
-
-export interface SolveQuestion {
-  item: ItemProperty;
-  isAnswer: boolean | null;
-}
 
 interface batchParms {
   short?: {
@@ -35,19 +30,11 @@ export const useSolveQuestion = defineStore(
     const lists = useState<SolveQuestion[]>("solve-question", () => []);
     const solveIndex = useState<number>("solveIndex", () => 0);
 
-    const batchTest = (단답: number, 서술형: number, 실무형: number) => {
-      const arr1 = shuffle([]).splice(0, 단답);
-      const arr2 = shuffle([]).splice(0, 서술형);
-      const arr3 = shuffle([]).splice(0, 실무형);
-
-      lists.value = [...arr1, ...arr2, ...arr3];
-    };
-
     const update = (index: number, item: SolveQuestion) => {
       console.log(index, item);
       // 문제를 배치한다음
       // 인덱스로 문제를 풀면서 업데이트 식으로 하면될듯
-      lists.value[index] = item;
+      lists.value[index] = { ...lists.value[index], ...item };
     };
 
     const reset = () => {
@@ -57,6 +44,7 @@ export const useSolveQuestion = defineStore(
     const batch = async (options: batchParms) => {
       lists.value = [];
       const fetchLists = [];
+
       if (options.short) {
         const shortLists = questionTypeShortAnswer(
           options.short.types,
@@ -84,7 +72,7 @@ export const useSolveQuestion = defineStore(
       solveIndex.value = 0;
       return questionLists;
     };
-    return { lists, solveIndex, reset, batch, batchTest, update };
+    return { lists, solveIndex, reset, batch, update };
   },
   {
     persist: {

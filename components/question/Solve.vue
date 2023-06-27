@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ItemProperty } from "~/common/type";
-import useSolveQuestion, { type SolveQuestion } from "~/store/useSolveQuestion";
+import { QuestionProperty } from "~/common/type";
+import { type SolveQuestion } from "~/common/type";
 
 const { item, itemIndex } = defineProps<{
-  item: ItemProperty;
+  item: QuestionProperty;
   itemIndex?: number;
 }>();
 
@@ -111,7 +111,7 @@ onMounted(() => {
   @apply px-[.5rem];
 }
 .question-btn {
-  @apply text-white font-bold py-2 px-4 rounded bg-stone-500 hover:bg-stone-700;
+  @apply text-white font-bold py-2 px-4 rounded bg-stone-500 hover:bg-stone-700 border-transparent;
   @apply cursor-pointer m-[.2rem];
 
   &.btn-red {

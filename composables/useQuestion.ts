@@ -1,5 +1,5 @@
-import { SolveQuestion } from "@/store/useSolveQuestion";
-import { ItemProperty } from "~/common/type";
+import { SolveQuestion } from "@/common/type";
+import { QuestionProperty } from "~/common/type";
 
 export type QuestionTypeShortPram = "시스템보안" | "네트워크보안";
 
@@ -82,7 +82,7 @@ export const useQuestion = () => {
     const score = 16;
 
     const questionMaps: { [key in QuestionTypeShortPram]: any } = {
-      시스템보안: "/api/chapter-01-short",
+      시스템보안: "/api/chapter-01-working",
       네트워크보안: "/api/capter-02-short",
     };
 
@@ -103,11 +103,38 @@ export const useQuestion = () => {
       .flat(2);
   }
 
+  const getQuestionsSelect = async ({
+    short,
+    desc,
+    working,
+  }: {
+    short?: QuestionTypeShortPram[];
+    desc?: QuestionTypeShortPram[];
+    working?: QuestionTypeShortPram[];
+  }) => {
+    const getLists = [];
+
+    if (short) {
+      getLists.push(questionTypeShortAnswer(short));
+    }
+    if (desc) {
+      getLists.push(questionTypeDescriptive(desc));
+    }
+    if (working) {
+      getLists.push(questionTypeWorking(working));
+    }
+
+    const questionLists = (await Promise.all(getLists)).flat(2);
+
+    return questionLists;
+  };
+
   const getAllQuestion = async () => {
     const short = questionTypeShortAnswer(["시스템보안", "네트워크보안"]);
     const desc = questionTypeDescriptive(["시스템보안"]);
+    const working = questionTypeWorking(["시스템보안"]);
 
-    const questionLists = (await Promise.all([short, desc])).flat(2);
+    const questionLists = (await Promise.all([short, desc, working])).flat(2);
 
     return questionLists;
   };
@@ -117,6 +144,7 @@ export const useQuestion = () => {
     questionTypeDescriptive,
     questionTypeWorking,
     getAllQuestion,
+    getQuestionsSelect,
   };
 };
 
@@ -129,9 +157,8 @@ function solveDataParser(data: any, score: number) {
   const part1 = Object.keys(questtion).map((key): SolveQuestion => {
     const item = questtion[key];
 
-    item["score"] = score;
     item["index"] = key;
-    return { item, isAnswer: null };
+    return { item, isAnswer: null, score, real: +key };
   });
 
   return [...part1];
@@ -141,7 +168,7 @@ function fetchDataParser(data: any) {
   if (!data) return;
   const questtion: { [key: string]: any } = toRaw(data);
 
-  const part1 = Object.keys(questtion).map((key): ItemProperty => {
+  const part1 = Object.keys(questtion).map((key): QuestionProperty => {
     const item = questtion[key];
 
     item["index"] = key;
