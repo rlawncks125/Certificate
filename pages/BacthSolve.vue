@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import { QuestionTypeShortPram } from "~/composables/useQuestion";
+import {
+  QuestionTypeShortPram,
+  QuestionTypeOther,
+} from "~/composables/useQuestion";
 import useSolveQuestion from "~/store/useSolveQuestion";
 
 const router = useRouter();
@@ -12,10 +15,15 @@ const descriptive = useState<QuestionTypeShortPram[]>(() => []);
 const descriptiveCount = useState<number>(() => 0);
 const working = useState<QuestionTypeShortPram[]>(() => []);
 const workingCount = useState<number>(() => 0);
+const other = useState<QuestionTypeOther[]>(() => []);
+const otherCount = useState<number>(() => 0);
 
 const questionMapper: { [key in QuestionTypeShortPram]: number } = {
   시스템보안: 0,
   네트워크보안: 1,
+};
+const questionOhterMapper: { [key in QuestionTypeOther]: number } = {
+  기타기사: 11,
 };
 
 /** model = checkbox  */
@@ -40,22 +48,21 @@ const typeMapper = reactive({
   },
 });
 
-const batchQuestion = () => {
-  // console.log({
-  //   short: {
-  //     types: toRaw(short.value),
-  //     count: shortCount.value,
-  //   },
-  //   descriptive: {
-  //     types: toRaw(descriptive.value),
-  //     count: descriptiveCount.value,
-  //   },
-  //   working: {
-  //     types: toRaw(working.value),
-  //     count: workingCount.value,
-  //   },
-  // });
+const typeOhterMapper = reactive({
+  0: {
+    title: "기타",
+    name: "other",
+    model: other,
+    count: otherCount,
+  },
+});
 
+const renderMapper = {
+  정보보안: { question: questionMapper, type: typeMapper },
+  기타: { question: questionOhterMapper, type: typeOhterMapper },
+};
+
+const batchQuestion = () => {
   batch({
     short: {
       types: toRaw(short.value),
@@ -69,6 +76,10 @@ const batchQuestion = () => {
       types: toRaw(working.value),
       count: workingCount.value,
     },
+    other: {
+      types: toRaw(other.value),
+      count: otherCount.value,
+    },
   }).then(() => router.push("/solve"));
 };
 </script>
@@ -76,7 +87,39 @@ const batchQuestion = () => {
 <template>
   <div>bacthSolve</div>
   <button @click="batchQuestion">선택 완료</button>
-  <div v-for="(item, key) in typeMapper" :key="key">
+
+  <div v-for="mapper in renderMapper">
+    <div v-for="(item, key) in mapper.type" :key="key">
+      <h2>{{ item.title }}</h2>
+      <div>
+        <input
+          type="number"
+          :id="`${item.name}-count`"
+          v-model="item.count"
+          min="0"
+        />
+        <label :for="`${item.name}-count`"> 개</label>
+      </div>
+
+      <div class="flex h-20 items-center gap-2">
+        <div
+          v-for="(value, key) in mapper.question"
+          :key="`${item.name}-${value}`"
+        >
+          <input
+            type="checkbox"
+            :id="`${item.name}-${value}`"
+            :value="key"
+            v-model="item.model"
+          />
+          <label :for="`${item.name}-${value}`">{{ key }}</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 정보보안 문제 -->
+  <!-- <div v-for="(item, key) in typeMapper" :key="key">
     <h2>{{ item.title }}</h2>
     <div>
       <input
@@ -102,7 +145,35 @@ const batchQuestion = () => {
         <label :for="`${item.name}-${value}`">{{ key }}</label>
       </div>
     </div>
-  </div>
+  </div> -->
+  <!-- 기타문제 -->
+  <!-- <div v-for="(item, key) in typeOhterMapper" :key="key">
+    <h2>{{ item.title }}</h2>
+    <div>
+      <input
+        type="number"
+        :id="`${item.name}-count`"
+        v-model="item.count"
+        min="0"
+      />
+      <label :for="`${item.name}-count`"> 개</label>
+    </div>
+
+    <div class="flex h-20 items-center gap-2">
+      <div
+        v-for="(value, key) in questionOhterMapper"
+        :key="`${item.name}-${value}`"
+      >
+        <input
+          type="checkbox"
+          :id="`${item.name}-${value}`"
+          :value="key"
+          v-model="item.model"
+        />
+        <label :for="`${item.name}-${value}`">{{ key }}</label>
+      </div>
+    </div>
+  </div> -->
 </template>
 
 <style lang="scss">

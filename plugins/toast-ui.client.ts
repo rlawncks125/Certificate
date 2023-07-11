@@ -9,7 +9,7 @@ import "tui-color-picker/dist/tui-color-picker.css";
 import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
 
 const colorSyntaxOptins = {
-  preset: ["#000000", "#388cf8", "#f4551b"],
+  preset: ["#000000", "#388cf8", "#f4551b", "#9E4784"],
 };
 
 const options = (el: HTMLElement, hieght?: string) => {

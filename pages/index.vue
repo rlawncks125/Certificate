@@ -19,7 +19,9 @@ const { getQuestionsSelect, getAllQuestion } = useQuestion();
 // });
 
 getQuestionsSelect({
-  working: ["시스템보안"],
+  // short: ["네트워크보안"],
+  // working: ["시스템보안"],
+  other: ["기타기사"],
 }).then((res) => {
   questionLists.value = res.flat(2);
   questionLists.value.sort((a, b) => b.index - a.index);

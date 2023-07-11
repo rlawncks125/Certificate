@@ -1,7 +1,10 @@
 import { defineStore } from "pinia";
 import { list } from "postcss";
 import { QuestionProperty, SolveQuestion } from "~/common/type";
-import { QuestionTypeShortPram } from "~/composables/useQuestion";
+import {
+  QuestionTypeShortPram,
+  QuestionTypeOther,
+} from "~/composables/useQuestion";
 
 interface batchParms {
   short?: {
@@ -16,6 +19,10 @@ interface batchParms {
     types: QuestionTypeShortPram[];
     count: number;
   };
+  other?: {
+    types: QuestionTypeOther[];
+    count: number;
+  };
 }
 
 export const useSolveQuestion = defineStore(
@@ -25,6 +32,7 @@ export const useSolveQuestion = defineStore(
       questionTypeDescriptive,
       questionTypeShortAnswer,
       questionTypeWorking,
+      questionTypeOther,
     } = useQuestion();
 
     const lists = useState<SolveQuestion[]>("solve-question", () => []);
@@ -64,6 +72,12 @@ export const useSolveQuestion = defineStore(
           (res) => shuffle(res).splice(0, options.working?.count)
         );
         fetchLists.push(workLists);
+      }
+      if (options.other) {
+        const otherLists = questionTypeOther(options.other.types, true).then(
+          (res) => shuffle(res).splice(0, options.other?.count)
+        );
+        fetchLists.push(otherLists);
       }
 
       const questionLists = (await Promise.all(fetchLists)).flat(2);

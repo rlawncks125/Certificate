@@ -2,6 +2,7 @@ import { SolveQuestion } from "@/common/type";
 import { QuestionProperty } from "~/common/type";
 
 export type QuestionTypeShortPram = "시스템보안" | "네트워크보안";
+export type QuestionTypeOther = "기타기사";
 
 export const useQuestion = () => {
   /** 단단형 */
@@ -102,15 +103,45 @@ export const useQuestion = () => {
       )
       .flat(2);
   }
+  /** 기타 문제 */
+  async function questionTypeOther(
+    questionTypes: QuestionTypeOther[],
+    isSolveType = false
+  ) {
+    const fetchLists: any[] = [];
+    const score = 20;
+
+    const questionMaps: { [key in QuestionTypeOther]: any } = {
+      기타기사: "api/other-01",
+    };
+
+    questionTypes.forEach((v) => {
+      if (v in questionMaps) {
+        fetchLists.push(
+          useFetch(questionMaps[v]).then((res) => res.data.value)
+        );
+      }
+    });
+
+    const questionLists = await Promise.all(fetchLists);
+
+    return questionLists
+      .map((v) =>
+        isSolveType ? solveDataParser(v, score) : fetchDataParser(v)
+      )
+      .flat(2);
+  }
 
   const getQuestionsSelect = async ({
     short,
     desc,
     working,
+    other,
   }: {
     short?: QuestionTypeShortPram[];
     desc?: QuestionTypeShortPram[];
     working?: QuestionTypeShortPram[];
+    other?: QuestionTypeOther[];
   }) => {
     const getLists = [];
 
@@ -122,6 +153,9 @@ export const useQuestion = () => {
     }
     if (working) {
       getLists.push(questionTypeWorking(working));
+    }
+    if (other) {
+      getLists.push(questionTypeOther(other));
     }
 
     const questionLists = (await Promise.all(getLists)).flat(2);
@@ -143,6 +177,7 @@ export const useQuestion = () => {
     questionTypeShortAnswer,
     questionTypeDescriptive,
     questionTypeWorking,
+    questionTypeOther,
     getAllQuestion,
     getQuestionsSelect,
   };
