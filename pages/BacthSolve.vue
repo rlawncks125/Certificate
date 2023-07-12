@@ -23,7 +23,8 @@ const questionMapper: { [key in QuestionTypeShortPram]: number } = {
   네트워크보안: 1,
 };
 const questionOhterMapper: { [key in QuestionTypeOther]: number } = {
-  기타기사: 11,
+  "설비보존-공압": 11,
+  "설비보존-유압": 12,
 };
 
 /** model = checkbox  */

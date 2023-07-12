@@ -21,7 +21,7 @@ const { getQuestionsSelect, getAllQuestion } = useQuestion();
 getQuestionsSelect({
   // short: ["네트워크보안"],
   // working: ["시스템보안"],
-  other: ["기타기사"],
+  // other: ["설비보존-공압", "설비보존-유압"],
 }).then((res) => {
   questionLists.value = res.flat(2);
   questionLists.value.sort((a, b) => b.index - a.index);
@@ -40,6 +40,7 @@ getQuestionsSelect({
   </div>
 
   <ClientOnly>
+    <h2>AOA !!!!!!!!!!!!!</h2>
     <div v-if="questionLists" v-for="item in questionLists">
       <LazyQuestionDesign v-if="item" :item="item" />
     </div>
