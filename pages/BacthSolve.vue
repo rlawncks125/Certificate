@@ -18,13 +18,15 @@ const workingCount = useState<number>(() => 0);
 const other = useState<QuestionTypeOther[]>(() => []);
 const otherCount = useState<number>(() => 0);
 
+const isLoading = ref(false);
+
 const questionMapper: { [key in QuestionTypeShortPram]: number } = {
   시스템보안: 0,
   네트워크보안: 1,
 };
 const questionOhterMapper: { [key in QuestionTypeOther]: number } = {
-  "설비보존-공압": 11,
-  "설비보존-유압": 12,
+  "설비보전-공압": 11,
+  "설비보전-유압": 12,
 };
 
 /** model = checkbox  */
@@ -64,6 +66,7 @@ const renderMapper = {
 };
 
 const batchQuestion = () => {
+  isLoading.value = true;
   batch({
     short: {
       types: toRaw(short.value),
@@ -81,13 +84,19 @@ const batchQuestion = () => {
       types: toRaw(other.value),
       count: otherCount.value,
     },
-  }).then(() => router.push("/solve"));
+  }).then(() => {
+    isLoading.value = false;
+    router.push("/solve");
+  });
 };
 </script>
 
 <template>
   <div>bacthSolve</div>
-  <button @click="batchQuestion">선택 완료</button>
+  <div>
+    <div v-if="isLoading">불러오는중...</div>
+    <button v-else @click="batchQuestion">선택 완료</button>
+  </div>
 
   <div v-for="mapper in renderMapper">
     <div v-for="(item, key) in mapper.type" :key="key">

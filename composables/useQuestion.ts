@@ -2,7 +2,7 @@ import { SolveQuestion } from "@/common/type";
 import { QuestionProperty } from "~/common/type";
 
 export type QuestionTypeShortPram = "시스템보안" | "네트워크보안";
-export type QuestionTypeOther = "설비보존-공압" | "설비보존-유압";
+export type QuestionTypeOther = "설비보전-공압" | "설비보전-유압";
 
 export const useQuestion = () => {
   /** 단단형 */
@@ -112,8 +112,8 @@ export const useQuestion = () => {
     const score = 20;
 
     const questionMaps: { [key in QuestionTypeOther]: any } = {
-      "설비보존-공압": "api/other-01-air",
-      "설비보존-유압": "api/other-01-oil",
+      "설비보전-공압": "api/other-01-air",
+      "설비보전-유압": "api/other-01-oil",
     };
 
     questionTypes.forEach((v) => {
