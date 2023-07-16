@@ -1,5 +1,5 @@
 //@ts-ignore
-// import data from "../datas/네트워크보안-단답형.json" assert { type: "json" };
+// import data from "../datas/네트워크보안-서술형.json" assert { type: "json" };
 
 // 네트워크 보안-단답형
 export default defineEventHandler(async () => {

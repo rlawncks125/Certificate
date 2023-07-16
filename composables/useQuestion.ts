@@ -55,7 +55,7 @@ export const useQuestion = () => {
 
     const questionMaps: { [key in QuestionTypeShortPram]: any } = {
       시스템보안: "/api/chapter-01-desc",
-      네트워크보안: "/api/capter-02-short",
+      네트워크보안: "/api/capter-02-desc",
     };
 
     questionTypes.forEach((v) => {

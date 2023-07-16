@@ -19,7 +19,8 @@ const { getQuestionsSelect, getAllQuestion } = useQuestion();
 // });
 
 getQuestionsSelect({
-  short: ["네트워크보안"],
+  // short: ["네트워크보안"],
+  // desc: ["네트워크보안"],
   // working: ["시스템보안"],
   // other: ["설비보존-공압", "설비보존-유압"],
 }).then((res) => {
