@@ -19,9 +19,9 @@ const { getQuestionsSelect, getAllQuestion } = useQuestion();
 // });
 
 getQuestionsSelect({
-  // short: ["네트워크보안"],
+  // short: ["어플리케이션보안"],
   // desc: ["네트워크보안"],
-  working: ["네트워크보안"],
+  // working: ["네트워크보안"],
   // other: ["설비보존-공압", "설비보존-유압"],
 }).then((res) => {
   questionLists.value = res.flat(2);
@@ -41,7 +41,7 @@ getQuestionsSelect({
   </div>
 
   <ClientOnly>
-    <h2>QWE !!!!!!!!!!!!!</h2>
+    <h2>HOHO BBANG !!</h2>
     <div v-if="questionLists" v-for="item in questionLists">
       <LazyQuestionDesign v-if="item" :item="item" />
     </div>

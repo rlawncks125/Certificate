@@ -23,6 +23,7 @@ const isLoading = ref(false);
 const questionMapper: { [key in QuestionTypeShortPram]: number } = {
   시스템보안: 0,
   네트워크보안: 1,
+  어플리케이션보안: 2,
 };
 const questionOhterMapper: { [key in QuestionTypeOther]: number } = {
   "설비보전-공압": 11,
