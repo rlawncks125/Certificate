@@ -19,7 +19,7 @@ export const useQuestion = () => {
     const questionMaps: { [key in QuestionTypeShortPram]: any } = {
       시스템보안: "/api/chapter-01-short",
       네트워크보안: "/api/capter-02-short",
-      어플리케이션보안: "/api/capter-03-desc",
+      어플리케이션보안: "/api/capter-03-short",
     };
 
     questionTypes.forEach((v) => {
@@ -90,7 +90,7 @@ export const useQuestion = () => {
     const questionMaps: { [key in QuestionTypeShortPram]: any } = {
       시스템보안: "/api/chapter-01-working",
       네트워크보안: "/api/capter-02-working",
-      어플리케이션보안: "/api/capter-03-desc",
+      어플리케이션보안: "/api/capter-03-working",
     };
 
     questionTypes.forEach((v) => {

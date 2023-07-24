@@ -8,6 +8,13 @@ import "@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-sy
 import "tui-color-picker/dist/tui-color-picker.css";
 import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
 
+// 테이블 병합
+
+// @cols=number:data
+// @rows=number:data
+import "@toast-ui/editor-plugin-table-merged-cell/dist/toastui-editor-plugin-table-merged-cell.css";
+import tableMergedCell from "@toast-ui/editor-plugin-table-merged-cell";
+
 const colorSyntaxOptins = {
   preset: ["#000000", "#388cf8", "#f4551b", "#9E4784"],
 };
@@ -29,7 +36,7 @@ const options = (el: HTMLElement, hieght?: string) => {
       // ["scrollSync"],
     ],
     language: "ko-KR",
-    plugins: [[colorSyntax, colorSyntaxOptins]],
+    plugins: [[colorSyntax, colorSyntaxOptins], tableMergedCell],
     autofocus: false,
   });
 };

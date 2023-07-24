@@ -1,5 +1,5 @@
 //@ts-ignore
-// import data from "../datas/어플리케이션-서술형.json" assert { type: "json" };
+// import data from "../datas/어플리케이션-실무형.json" assert { type: "json" };
 
 import { PREPARING_QUESTION_PATH } from "../../common/path";
 

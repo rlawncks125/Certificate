@@ -42,16 +42,16 @@ onMounted(() => {
     <NuxtLink to="/">홈 으로</NuxtLink>
   </div>
   <p>{{ answerValue }}점 / 총{{ totlaValue }}점</p>
-  <h2 class="text-green-400">정답</h2>
+  <h2 class="text-red-400">오답</h2>
   <ClientOnly>
-    <div v-if="trueLists" v-for="item in trueLists">
+    <div v-if="falseLists" v-for="item in falseLists">
       <div>번호.{{ item.real }}</div>
       <LazyQuestionDesign :item="item.item" />
     </div>
   </ClientOnly>
-  <h2 class="text-red-400">오답</h2>
+  <h2 class="text-green-400">정답</h2>
   <ClientOnly>
-    <div v-if="falseLists" v-for="item in falseLists">
+    <div v-if="trueLists" v-for="item in trueLists">
       <div>번호.{{ item.real }}</div>
       <LazyQuestionDesign :item="item.item" />
     </div>
