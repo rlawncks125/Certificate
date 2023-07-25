@@ -1,3 +1,4 @@
+// 침해사고분석및대응-실무형
 //@ts-ignore
 // import data from "../datas/침해사고분석및대응-실무형.json" assert { type: "json" };
 

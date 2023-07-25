@@ -63,8 +63,8 @@ const typeOhterMapper = reactive({
 });
 
 const renderMapper = {
-  정보보안: { question: questionMapper, type: typeMapper },
   기타: { question: questionOhterMapper, type: typeOhterMapper },
+  정보보안: { question: questionMapper, type: typeMapper },
 };
 
 const batchQuestion = () => {
@@ -113,7 +113,7 @@ const batchQuestion = () => {
         <label :for="`${item.name}-count`"> 개</label>
       </div>
 
-      <div class="flex h-20 items-center gap-2">
+      <div class="flex mt-4 h-auto items-center gap-2 flex-wrap">
         <div
           v-for="(value, key) in mapper.question"
           :key="`${item.name}-${value}`"
