@@ -20,8 +20,8 @@ const { getQuestionsSelect, getAllQuestion } = useQuestion();
 
 getQuestionsSelect({
   // short: ["침해사고 분석 및 대응"],
-  desc: ["침해사고 분석 및 대응"],
-  // working: ["어플리케이션보안"],
+  // desc: ["침해사고 분석 및 대응"],
+  working: ["침해사고 분석 및 대응"],
   // other: ["설비보존-공압", "설비보존-유압"],
 }).then((res) => {
   questionLists.value = res.flat(2);
