@@ -34,6 +34,7 @@ watch(solveIndex, () => {
   </div>
 
   <ClientOnly>
+    <span class="float-right"> 총 문제 : {{ lists.length }} </span>
     <div v-if="lists" v-for="(question, _index) in lists">
       <Transition name="left-right" mode="out-in">
         <div v-if="_index === solveIndex">
