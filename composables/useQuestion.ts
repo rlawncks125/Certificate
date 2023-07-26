@@ -5,7 +5,8 @@ export type QuestionTypeShortPram =
   | "시스템보안"
   | "네트워크보안"
   | "어플리케이션보안"
-  | "침해사고 분석 및 대응";
+  | "침해사고 분석 및 대응"
+  | "정보보안 일반";
 export type QuestionTypeOther = "설비보전-공압" | "설비보전-유압";
 
 export const useQuestion = () => {
@@ -22,6 +23,7 @@ export const useQuestion = () => {
       네트워크보안: "/api/capter-02-short",
       어플리케이션보안: "/api/capter-03-short",
       "침해사고 분석 및 대응": "api/capter-04-short",
+      "정보보안 일반": "api/capter-05-short",
     };
 
     questionTypes.forEach((v) => {
@@ -64,6 +66,7 @@ export const useQuestion = () => {
       네트워크보안: "/api/capter-02-desc",
       어플리케이션보안: "/api/capter-03-desc",
       "침해사고 분석 및 대응": "/api/capter-04-desc",
+      "정보보안 일반": "api/capter-05-desc",
     };
 
     questionTypes.forEach((v) => {
@@ -95,6 +98,7 @@ export const useQuestion = () => {
       네트워크보안: "/api/capter-02-working",
       어플리케이션보안: "/api/capter-03-working",
       "침해사고 분석 및 대응": "/api/capter-04-working",
+      "정보보안 일반": "api/capter-05-working",
     };
 
     questionTypes.forEach((v) => {

@@ -19,9 +19,9 @@ const { getQuestionsSelect, getAllQuestion } = useQuestion();
 // });
 
 getQuestionsSelect({
-  // short: ["침해사고 분석 및 대응"],
-  // desc: ["침해사고 분석 및 대응"],
-  working: ["침해사고 분석 및 대응"],
+  short: ["정보보안 일반"],
+  desc: ["정보보안 일반"],
+  working: ["정보보안 일반"],
   // other: ["설비보존-공압", "설비보존-유압"],
 }).then((res) => {
   questionLists.value = res.flat(2);

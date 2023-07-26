@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { QuestionDesign } from "~/.nuxt/components";
 import {
   QuestionTypeShortPram,
   QuestionTypeOther,
@@ -25,7 +26,9 @@ const questionMapper: { [key in QuestionTypeShortPram]: number } = {
   네트워크보안: 1,
   어플리케이션보안: 2,
   "침해사고 분석 및 대응": 3,
+  "정보보안 일반": 4,
 };
+
 const questionOhterMapper: { [key in QuestionTypeOther]: number } = {
   "설비보전-공압": 11,
   "설비보전-유압": 12,
