@@ -19,10 +19,10 @@ const { getQuestionsSelect, getAllQuestion } = useQuestion();
 // });
 
 getQuestionsSelect({
-  short: ["정보보안 일반"],
-  desc: ["정보보안 일반"],
-  working: ["정보보안 일반"],
-  // other: ["설비보존-공압", "설비보존-유압"],
+  short: ["정보보안 괸리/법규"],
+  // desc: ["정보보안 괸리/법규"],
+  // working: ["정보보안 괸리/법규"],
+  // other: ["설비보전-공압", "설비보전-유압"],
 }).then((res) => {
   questionLists.value = res.flat(2);
   questionLists.value.sort((a, b) => b.index - a.index);
@@ -41,7 +41,7 @@ getQuestionsSelect({
   </div>
 
   <ClientOnly>
-    <h2>HOHO BBANG !!</h2>
+    <h2>GUN BBANG !!</h2>
     <div v-if="questionLists" v-for="item in questionLists">
       <LazyQuestionDesign v-if="item" :item="item" />
     </div>

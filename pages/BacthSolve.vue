@@ -27,6 +27,7 @@ const questionMapper: { [key in QuestionTypeShortPram]: number } = {
   어플리케이션보안: 2,
   "침해사고 분석 및 대응": 3,
   "정보보안 일반": 4,
+  "정보보안 괸리/법규": 5,
 };
 
 const questionOhterMapper: { [key in QuestionTypeOther]: number } = {

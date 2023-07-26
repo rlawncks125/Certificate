@@ -6,7 +6,8 @@ export type QuestionTypeShortPram =
   | "네트워크보안"
   | "어플리케이션보안"
   | "침해사고 분석 및 대응"
-  | "정보보안 일반";
+  | "정보보안 일반"
+  | "정보보안 괸리/법규";
 export type QuestionTypeOther = "설비보전-공압" | "설비보전-유압";
 
 export const useQuestion = () => {
@@ -19,11 +20,12 @@ export const useQuestion = () => {
     const score = 3;
 
     const questionMaps: { [key in QuestionTypeShortPram]: any } = {
-      시스템보안: "/api/chapter-01-short",
-      네트워크보안: "/api/capter-02-short",
-      어플리케이션보안: "/api/capter-03-short",
-      "침해사고 분석 및 대응": "api/capter-04-short",
-      "정보보안 일반": "api/capter-05-short",
+      시스템보안: "/api/Q-security/chapter-01-short",
+      네트워크보안: "/api/Q-security/capter-02-short",
+      어플리케이션보안: "/api/Q-security/capter-03-short",
+      "침해사고 분석 및 대응": "/api/Q-security/capter-04-short",
+      "정보보안 일반": "/api/Q-security/capter-05-short",
+      "정보보안 괸리/법규": "/api/Q-security/capter-06-short",
     };
 
     questionTypes.forEach((v) => {
@@ -62,11 +64,12 @@ export const useQuestion = () => {
     const score = 12;
 
     const questionMaps: { [key in QuestionTypeShortPram]: any } = {
-      시스템보안: "/api/chapter-01-desc",
-      네트워크보안: "/api/capter-02-desc",
-      어플리케이션보안: "/api/capter-03-desc",
-      "침해사고 분석 및 대응": "/api/capter-04-desc",
-      "정보보안 일반": "api/capter-05-desc",
+      시스템보안: "/api/Q-security/chapter-01-desc",
+      네트워크보안: "/api/Q-security/capter-02-desc",
+      어플리케이션보안: "/api/Q-security/capter-03-desc",
+      "침해사고 분석 및 대응": "/api/Q-security/capter-04-desc",
+      "정보보안 일반": "/api/Q-security/capter-05-desc",
+      "정보보안 괸리/법규": "/api/Q-security/capter-06-desc",
     };
 
     questionTypes.forEach((v) => {
@@ -94,11 +97,12 @@ export const useQuestion = () => {
     const score = 16;
 
     const questionMaps: { [key in QuestionTypeShortPram]: any } = {
-      시스템보안: "/api/chapter-01-working",
-      네트워크보안: "/api/capter-02-working",
-      어플리케이션보안: "/api/capter-03-working",
-      "침해사고 분석 및 대응": "/api/capter-04-working",
-      "정보보안 일반": "api/capter-05-working",
+      시스템보안: "/api/Q-security/chapter-01-working",
+      네트워크보안: "/api/Q-security/capter-02-working",
+      어플리케이션보안: "/api/Q-security/capter-03-working",
+      "침해사고 분석 및 대응": "/api/Q-security/capter-04-working",
+      "정보보안 일반": "/api/Q-security/capter-05-working",
+      "정보보안 괸리/법규": "/api/Q-security/capter-06-working",
     };
 
     questionTypes.forEach((v) => {
