@@ -90,7 +90,7 @@ export const useSolveQuestion = defineStore(
   },
   {
     persist: {
-      paths: ["lists"],
+      paths: ["lists", "solveIndex"],
       // 기본 값이 쿠기에저장인데 쿠기는 많은 데이터를 저장하지못함
       storage: persistedState.localStorage,
     },
