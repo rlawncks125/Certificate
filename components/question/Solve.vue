@@ -57,6 +57,7 @@ onMounted(() => {
     <div
       class="my-[1rem] py-[1rem] p-2 relative"
       :style="{ border: '1px solid' }"
+      v-if="item['보기src'].length > 0 || item['보기'].length > 0"
     >
       <div v-if="item['보기src'].length > 0">
         <img

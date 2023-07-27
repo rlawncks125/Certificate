@@ -19,7 +19,7 @@ const { getQuestionsSelect, getAllQuestion } = useQuestion();
 // });
 
 getQuestionsSelect({
-  // short: ["정보보안 괸리/법규"],
+  // short: ["어플리케이션보안"],
   // desc: ["정보보안 괸리/법규"],
   // working: ["정보보안 괸리/법규"],
   // other: ["설비보전-공압", "설비보전-유압"],
