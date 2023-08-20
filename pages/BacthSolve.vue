@@ -33,6 +33,7 @@ const questionMapper: { [key in QuestionTypeShortPram]: number } = {
 const questionOhterMapper: { [key in QuestionTypeOther]: number } = {
   "설비보전-공압": 11,
   "설비보전-유압": 12,
+  직무면접: 13,
 };
 
 /** model = checkbox  */

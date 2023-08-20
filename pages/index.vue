@@ -19,18 +19,19 @@ const { getQuestionsSelect, getAllQuestion } = useQuestion();
 // });
 
 getQuestionsSelect({
-  short: ["정보보안 괸리/법규"],
+  // short: ["정보보안 괸리/법규"],
   // desc: ["정보보안 괸리/법규"],
   // working: ["정보보안 괸리/법규"],
-  // other: ["설비보전-공압", "설비보전-유압"],
+  // other: ["직무면접"],
 }).then((res) => {
-  const selectedNumbers = [729];
+  // const selectedNumbers = [729];
 
-  questionLists.value = res.flat(2);
-  questionLists.value = questionLists.value.filter((v: any) =>
-    selectedNumbers.includes(+v.index)
-  );
-  questionLists.value.sort((a, b) => b.index - a.index);
+  // questionLists.value = res.flat(2);
+  // questionLists.value = questionLists.value.filter((v: any) =>
+  //   selectedNumbers.includes(+v.index)
+  // );
+  // questionLists.value.sort((a, b) => b.index - a.index);
+  questionLists.value = res;
 });
 </script>
 
