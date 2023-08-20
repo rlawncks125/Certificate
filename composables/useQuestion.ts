@@ -8,7 +8,7 @@ export type QuestionTypeShortPram =
   | "침해사고 분석 및 대응"
   | "정보보안 일반"
   | "정보보안 괸리/법규";
-export type QuestionTypeOther = "설비보전-공압" | "설비보전-유압";
+export type QuestionTypeOther = "설비보전-공압" | "설비보전-유압" | "직무면접";
 
 export const useQuestion = () => {
   /** 단단형 */
@@ -132,6 +132,7 @@ export const useQuestion = () => {
     const questionMaps: { [key in QuestionTypeOther]: any } = {
       "설비보전-공압": "api/other-01-air",
       "설비보전-유압": "api/other-01-oil",
+      직무면접: "api/job",
     };
 
     questionTypes.forEach((v) => {
