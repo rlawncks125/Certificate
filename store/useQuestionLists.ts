@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 
-type questionTypes = "서술형1" | "서술형2" | "실무";
+type questionTypes = "서술형1" | "서술형2" | "실무형1" | "실무형2";
 
 export const useQuestionLists = defineStore(
   "custom-questionLists",
@@ -15,7 +15,19 @@ export const useQuestionLists = defineStore(
         328, 812, 348, 104,
       ],
       서술형2: [],
-      실무: [],
+      실무형1: [
+        142, 151, 147, 144, 366, 673, 685, 679, 379, 139, 688, 374, 678, 150,
+        533, 680, 670, 380, 534, 158, 145, 714, 686, 528, 137, 372, 677, 146,
+        138, 381, 149, 371, 363, 152, 375, 676, 163, 373, 156, 687, 523, 531,
+        536, 130, 155, 675, 153, 524, 543, 370, 542, 695, 694, 539, 532, 535,
+        140, 689, 541, 540, 691, 364, 538, 143, 537, 526, 365, 148, 671, 358,
+        369, 359, 368, 360, 367,
+      ],
+      실무형2: [
+        527, 157, 136, 141, 131, 135, 133, 378, 128, 682, 132, 154, 357, 123,
+        529, 530, 164, 126, 361, 159, 692, 127, 162, 674, 693, 683, 681, 129,
+        836, 690, 377, 160, 672, 362, 161, 716, 837, 684,
+      ],
     } as { [key in questionTypes]: number[] };
 
     const filterQuestionByNumbers = (questions: any[], numbers: number[]) => {
@@ -61,12 +73,11 @@ export const useQuestionLists = defineStore(
     const getQuestion = (type: questionTypes) => {
       switch (type) {
         case "서술형1":
-          getDescQuestions(questionsMaps[type]);
-          break;
         case "서술형2":
           getDescQuestions(questionsMaps[type]);
           break;
-        case "실무":
+        case "실무형1":
+        case "실무형2":
           getWorkingQuestions(questionsMaps[type]);
           break;
         default:

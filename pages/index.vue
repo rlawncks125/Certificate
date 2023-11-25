@@ -38,6 +38,8 @@ const { getQuestion, reset: questionReset } = useQuestionLists();
     <h2>GUN BBANG !!!</h2>
     <div class="flex gap-4">
       <button @click="getQuestion('서술형1')">서술형 1</button>
+      <button @click="getQuestion('실무형1')">실무형 1</button>
+      <button @click="getQuestion('실무형2')">실무형 2</button>
       <button @click="questionReset">초기화</button>
     </div>
     <div v-if="questionLists" v-for="item in questionLists">
